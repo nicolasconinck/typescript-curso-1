@@ -17,7 +17,7 @@ export class NegociacaoController {
         negociacao.data.setDate(12);
         this.negociacoes.adiciona(negociacao);
         this.negociacoesView.updateView(this.negociacoes);
-        this.mensagemView.update('Negociação adicionada com sucesso');
+        this.mensagemView.updateView('Negociação adicionada com sucesso');
         this.limparFormulario();
     }
     criaNegociacao() {
