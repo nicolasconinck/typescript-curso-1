@@ -1,9 +1,13 @@
 export class View {
-    constructor(selector) {
+    constructor(selector, replaceScript = false) {
+        this.replaceScript = false;
         this.element = document.querySelector(selector);
     }
     updateView(model) {
-        const template = this.template(model);
+        let template = this.template(model);
+        if (this.replaceScript) {
+            template = template.replace(/<script>[\s\S]*?<\/script>/, '');
+        }
         this.element.innerHTML = template;
     }
 }
