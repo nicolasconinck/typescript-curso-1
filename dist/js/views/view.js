@@ -1,7 +1,16 @@
 export class View {
-    constructor(selector, replaceScript = false) {
+    constructor(selector, replaceScript) {
         this.replaceScript = false;
-        this.element = document.querySelector(selector);
+        if (replaceScript) {
+            this.replaceScript = replaceScript;
+        }
+        const element = document.querySelector(selector);
+        if (element) {
+            this.element = element;
+        }
+        else {
+            throw Error(`Seletor ${selector} não existe no DOM`);
+        }
     }
     updateView(model) {
         let template = this.template(model);
