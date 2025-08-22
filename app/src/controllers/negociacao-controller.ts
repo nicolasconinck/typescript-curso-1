@@ -1,7 +1,7 @@
-import { MensagemView } from './../views/mensagem-view.js';
+import { MensagemView } from '../views/mensagem-view.js';
 import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
-import { NegociacoesView } from './../views/negociacoes-view.js';
+import { NegociacoesView } from '../views/negociacoes-view.js';
 import { DaysOfWeek } from '../enums/daysOfWeek.js';
 
 export class NegociacaoController {
