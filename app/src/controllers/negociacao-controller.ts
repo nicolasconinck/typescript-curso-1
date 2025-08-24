@@ -3,13 +3,15 @@ import { Negociacao } from '../models/negociacao.js';
 import { Negociacoes } from '../models/negociacoes.js';
 import { NegociacoesView } from '../views/negociacoes-view.js';
 import { DaysOfWeek } from '../enums/daysOfWeek.js';
+import { logExecutionTime } from '../decorators/log-execution-time.js';
+import { inspect } from '../decorators/inspect.js';
 
 export class NegociacaoController {
     private inputData: HTMLInputElement;
     private inputQuantidade: HTMLInputElement;
     private inputValor: HTMLInputElement;
     private negociacoes = new Negociacoes;
-    private negociacoesView = new NegociacoesView('#negociacoesView', true);
+    private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
 
     constructor() {
@@ -18,7 +20,9 @@ export class NegociacaoController {
         this.inputValor = document.querySelector('#valor') as HTMLInputElement;
         this.negociacoesView.updateView(this.negociacoes);
     }
-
+    
+    @logExecutionTime(true)
+    @inspect
     public adiciona(): void {
         const negociacao = Negociacao.createInstance(this.inputData.value, 
                                                     this.inputQuantidade.value, 
@@ -46,7 +50,7 @@ export class NegociacaoController {
         this.inputValor.value = '';
         this.inputData.focus();
     }
-
+    
     private updateView(message: string) : void {
         this.negociacoesView.updateView(this.negociacoes);
         this.mensagemView.updateView(message);

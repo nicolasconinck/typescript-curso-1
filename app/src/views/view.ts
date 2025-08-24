@@ -1,11 +1,9 @@
+import { logExecutionTime } from "../decorators/log-execution-time.js";
+
 export abstract class View<T> {
     protected element: HTMLElement;
-    private replaceScript = false;
 
-    constructor(selector: string, replaceScript?: boolean) {
-        if (replaceScript) {
-            this.replaceScript = replaceScript;
-        }
+    constructor(selector: string) {
         const element = document.querySelector(selector);
         if (element) {
             this.element = element as HTMLElement;
@@ -14,12 +12,9 @@ export abstract class View<T> {
         }
     }
         
+    @logExecutionTime()
     public updateView(model: T): void {
-        let template = this.template(model);
-        if (this.replaceScript) {
-            template = template.replace(/<script>[\s\S]*?<\/script>/, '');
-        }
-        this.element.innerHTML = template;
+        this.element.innerHTML = this.template(model);
     }
 
     protected abstract template(model: T): string;
