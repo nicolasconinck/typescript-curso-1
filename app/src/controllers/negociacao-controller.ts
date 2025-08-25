@@ -6,6 +6,7 @@ import { DaysOfWeek } from '../enums/daysOfWeek.js';
 import { logExecutionTime } from '../decorators/log-execution-time.js';
 import { inspect } from '../decorators/inspect.js';
 import { domInjector } from '../decorators/dom-injector.js';
+import { NegociacoesService } from '../services/negociacoes-service.js';
 
 export class NegociacaoController {
 
@@ -18,6 +19,7 @@ export class NegociacaoController {
     private negociacoes = new Negociacoes;
     private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
+    private negociacoesService = new NegociacoesService();
 
     constructor() {
         this.negociacoesView.updateView(this.negociacoes);
@@ -39,6 +41,17 @@ export class NegociacaoController {
         this.negociacoes.adiciona(negociacao);
         this.limparFormulario();
         this.updateView('Negociação adicionada com sucesso');
+    }
+
+    public importData(): void {
+            this.negociacoesService.getNegociacoes()
+            .then(negociacoesDeHoje => {
+                for(let negociacao of negociacoesDeHoje) {
+                    this.negociacoes.adiciona(negociacao);
+                }
+
+                this.negociacoesView.updateView(this.negociacoes);
+            });
     }
 
     private isWorkingDay(data: Date) {

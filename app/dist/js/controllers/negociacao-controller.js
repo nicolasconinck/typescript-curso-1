@@ -12,11 +12,13 @@ import { DaysOfWeek } from '../enums/daysOfWeek.js';
 import { logExecutionTime } from '../decorators/log-execution-time.js';
 import { inspect } from '../decorators/inspect.js';
 import { domInjector } from '../decorators/dom-injector.js';
+import { NegociacoesService } from '../services/negociacoes-service.js';
 export class NegociacaoController {
     constructor() {
         this.negociacoes = new Negociacoes;
         this.negociacoesView = new NegociacoesView('#negociacoesView');
         this.mensagemView = new MensagemView('#mensagemView');
+        this.negociacoesService = new NegociacoesService();
         this.negociacoesView.updateView(this.negociacoes);
     }
     adiciona() {
@@ -29,6 +31,15 @@ export class NegociacaoController {
         this.negociacoes.adiciona(negociacao);
         this.limparFormulario();
         this.updateView('Negociação adicionada com sucesso');
+    }
+    importData() {
+        this.negociacoesService.getNegociacoes()
+            .then(negociacoesDeHoje => {
+            for (let negociacao of negociacoesDeHoje) {
+                this.negociacoes.adiciona(negociacao);
+            }
+            this.negociacoesView.updateView(this.negociacoes);
+        });
     }
     isWorkingDay(data) {
         return data.getDate() > DaysOfWeek.Sunday
