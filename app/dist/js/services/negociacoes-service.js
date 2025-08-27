@@ -1,6 +1,6 @@
 import { Negociacao } from "../models/negociacao.js";
 export class NegociacoesService {
-    getNegociacoes() {
+    getNegociacoesToDay() {
         return fetch('http://localhost:8080/dados')
             .then(response => { return response.json(); })
             .then((data) => {

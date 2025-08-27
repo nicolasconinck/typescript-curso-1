@@ -13,6 +13,7 @@ import { logExecutionTime } from '../decorators/log-execution-time.js';
 import { inspect } from '../decorators/inspect.js';
 import { domInjector } from '../decorators/dom-injector.js';
 import { NegociacoesService } from '../services/negociacoes-service.js';
+import { printLog } from '../utils/print-log.js';
 export class NegociacaoController {
     constructor() {
         this.negociacoes = new Negociacoes;
@@ -29,11 +30,12 @@ export class NegociacaoController {
         }
         negociacao.data.setDate(12);
         this.negociacoes.adiciona(negociacao);
+        printLog(negociacao, this.negociacoes);
         this.limparFormulario();
         this.updateView('Negociação adicionada com sucesso');
     }
     importData() {
-        this.negociacoesService.getNegociacoes()
+        this.negociacoesService.getNegociacoesToDay()
             .then(negociacoesDeHoje => {
             for (let negociacao of negociacoesDeHoje) {
                 this.negociacoes.adiciona(negociacao);

@@ -3,7 +3,7 @@ import { Negociacao } from "../models/negociacao.js";
 
 export class NegociacoesService {
     
-    public getNegociacoes(): Promise<Negociacao[]> {
+    public getNegociacoesToDay(): Promise<Negociacao[]> {
         return fetch('http://localhost:8080/dados')
             .then(response => { return response.json();})
             .then((data: NegociacoesDoDia[]) => {

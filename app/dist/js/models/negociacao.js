@@ -1,8 +1,17 @@
-export class Negociacao {
+import { Printable } from "../utils/printable.js";
+export class Negociacao extends Printable {
     constructor(_data, quantidade, valor) {
+        super();
         this._data = _data;
         this.quantidade = quantidade;
         this.valor = valor;
+    }
+    static createInstance(dataStr, quantidadeStr, valorStr) {
+        const exp = /-/g;
+        const date = new Date(dataStr.replace(exp, ','));
+        const quantidade = parseInt(quantidadeStr);
+        const valor = parseFloat(valorStr);
+        return new Negociacao(date, quantidade, valor);
     }
     get volume() {
         return this.quantidade * this.valor;
@@ -11,11 +20,11 @@ export class Negociacao {
         const data = new Date(this._data.getTime());
         return data;
     }
-    static createInstance(dataStr, quantidadeStr, valorStr) {
-        const exp = /-/g;
-        const date = new Date(dataStr.replace(exp, ','));
-        const quantidade = parseInt(quantidadeStr);
-        const valor = parseFloat(valorStr);
-        return new Negociacao(date, quantidade, valor);
+    toStringLog() {
+        return `
+            Data: ${this.data},
+            Quantidade: ${this.quantidade},
+            Valor: ${this.valor}
+        `;
     }
 }

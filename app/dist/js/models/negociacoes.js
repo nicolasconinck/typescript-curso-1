@@ -1,5 +1,7 @@
-export class Negociacoes {
+import { Printable } from '../utils/printable.js';
+export class Negociacoes extends Printable {
     constructor() {
+        super(...arguments);
         this.negociacoes = [];
     }
     adiciona(negociacao) {
@@ -7,5 +9,8 @@ export class Negociacoes {
     }
     lista() {
         return this.negociacoes;
+    }
+    toStringLog() {
+        return JSON.stringify(this.negociacoes, null, 2);
     }
 }
