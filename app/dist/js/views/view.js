@@ -22,3 +22,4 @@ export class View {
 __decorate([
     logExecutionTime()
 ], View.prototype, "updateView", null);
+//# sourceMappingURL=view.js.map

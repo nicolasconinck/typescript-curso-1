@@ -1,13 +1,11 @@
-import { Printable } from "../utils/printable.js";
+import { Model } from './../interfaces/model.js';
 
-export class Negociacao extends Printable{
+export class Negociacao implements Model<Negociacao>{
     constructor(
         private _data: Date, 
         public readonly quantidade: number, 
         public readonly valor: number
-    ){
-        super();
-    }
+    ){}
 
     public static createInstance(dataStr: string, quantidadeStr: string, valorStr: string) : Negociacao{
         const exp = /-/g;
@@ -32,5 +30,11 @@ export class Negociacao extends Printable{
             Quantidade: ${this.quantidade},
             Valor: ${this.valor}
         `;
+    }
+
+    public isEquals(negociacao: Negociacao): boolean {
+        return this.data.getDate() === negociacao.data.getDate() &&
+               this.data.getMonth() === negociacao.data.getMonth() &&
+               this.data.getFullYear() === negociacao.data.getFullYear();
     }
 }

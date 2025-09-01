@@ -1,7 +1,5 @@
-import { Printable } from '../utils/printable.js';
-export class Negociacoes extends Printable {
+export class Negociacoes {
     constructor() {
-        super(...arguments);
         this.negociacoes = [];
     }
     adiciona(negociacao) {
@@ -13,4 +11,8 @@ export class Negociacoes extends Printable {
     toStringLog() {
         return JSON.stringify(this.negociacoes, null, 2);
     }
+    isEquals(negociacoes) {
+        return JSON.stringify(this.negociacoes) === JSON.stringify(negociacoes.lista());
+    }
 }
+//# sourceMappingURL=negociacoes.js.map

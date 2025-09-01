@@ -1,3 +1,3 @@
-export abstract class Printable {
-    public abstract toStringLog(): string;
+export interface Printable {
+    toStringLog(): string;
 }
